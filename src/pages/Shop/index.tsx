@@ -3,10 +3,19 @@ import { Link } from "react-router";
 import FilterSection from "./Filter";
 import Header from "./header";
 import Product from "./Product";
-import { AlertMessage, Card, Drawer, Pagination } from "@/components";
+import { AlertMessage, Card, Pagination } from "@/components";
 
 export const ShopPage = () => {
-  const { products, isLoading, isError, error } = useProducts();
+  const {
+    products,
+    currentPage,
+    onPagtion,
+    hasPrev,
+    hasNext,
+    isLoading,
+    isError,
+    error,
+  } = useProducts();
   return (
     <div className="px-6 py-4 ">
       <section>
@@ -33,7 +42,7 @@ export const ShopPage = () => {
             <div className="space-y-3 ">
               <div className="grid grid-flow-row grid-cols-3 gap-10 ">
                 {products.map((product) => (
-                  <Product product={product} />
+                  <Product key={product.id} product={product} />
                 ))}
                 {isLoading &&
                   products.length === 0 &&
@@ -58,7 +67,13 @@ export const ShopPage = () => {
               </div>
               <footer>
                 <div className="my-8 divider"></div>
-                <Pagination />
+                <Pagination
+                  hasNext={hasNext}
+                  hasPrev={hasPrev}
+                  currentPage={currentPage}
+                  getNext={() => onPagtion("+")}
+                  getPrev={() => onPagtion("-")}
+                />
               </footer>
             </div>
           </article>
@@ -69,55 +84,3 @@ export const ShopPage = () => {
 };
 
 export default ShopPage;
-
-// const Test = () => (
-//   <div className="drawer">
-//     <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-//     <div className="drawer-content">
-//       {/* Page content here */}
-//       <div>
-//         <h2 className="items-center text-2xl space-between">
-//           Main Content
-//           <label
-//             htmlFor="my-drawer"
-//             className="btn btn-md btn-circle text-primary drawer-button"
-//           >
-//             <FilterIcon />
-//           </label>
-//         </h2>
-//       </div>
-//     </div>
-//     <aside className="drawer-side ">
-//       <label
-//         htmlFor="my-drawer"
-//         aria-label="close sidebar"
-//         className="drawer-overlay"
-//       />
-//       <Card
-//         className="z-10 h-full max-w-xs bg-white rounded-l-none drawer-content"
-//         aria-label="Side bar"
-//       >
-//         <label
-//           htmlFor="my-drawer"
-//           className="btn btn-sm btn-circle text-primary drawer-button"
-//         >
-//           <ArrowIcon className="rotate-180" />
-//         </label>
-//         This Will be
-//         <FilterSection />
-//       </Card>
-//     </aside>
-//   </div>
-// );
-
-const Test = () => {
-  return (
-    <Drawer
-      id="first Test"
-      title="Frist Test"
-      drawerContent={<FilterSection />}
-    >
-      sasd
-    </Drawer>
-  );
-};

@@ -8,7 +8,11 @@ export const Product = ({ product, className = "", ...rest }: ProductProps) => {
   return (
     <div className={`shadow-xl card bg-base-100 ${className} `} {...rest}>
       <figure>
-        <img src={product.images[0]} alt={`${product.title} Image`} />
+        <img
+          className="h-80"
+          src={product.images[0]}
+          alt={`${product.title} Image`}
+        />
       </figure>
       <div className="card-body ">
         <h2 className="card-title">{product.title}</h2>

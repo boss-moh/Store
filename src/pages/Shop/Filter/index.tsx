@@ -13,7 +13,7 @@ const FilterSection = ({ className = "", ...rest }: divProps) => {
     isFetched,
     isError,
   } = useQuery({
-    queryKey: ["CATEGORIES"],
+    queryKey: ["categories"],
     queryFn: () =>
       axios.get(API_END_POINT.CATEGORIES) as Promise<categoryType[]>,
     staleTime: Infinity,
@@ -46,8 +46,8 @@ const FilterSection = ({ className = "", ...rest }: divProps) => {
           )}
 
           {categories?.map((category) => (
-            <AsideLink key={category.id} to={"/"}>
-              {category.name}
+            <AsideLink key={category} to={"/"}>
+              {category}
             </AsideLink>
           ))}
 

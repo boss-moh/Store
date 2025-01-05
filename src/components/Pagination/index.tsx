@@ -1,15 +1,36 @@
-export const Pagination = () => {
+import { tw } from "@/libs";
+
+export type PaginationProps = {
+  hasNext: boolean;
+  hasPrev: boolean;
+  currentPage: number;
+  getPrev: () => void;
+  getNext: () => void;
+};
+export const Pagination = ({
+  hasNext,
+  hasPrev,
+  currentPage,
+  getNext,
+  getPrev,
+}: PaginationProps) => {
   return (
-    <div className="flex justify-center gap-12">
-      <button className="btn btn-outline">Previous</button>
-      <div className="join">
-        <button className="join-item btn">1</button>
-        <button className="join-item btn">2</button>
-        <button className="join-item btn btn-disabled">...</button>
-        <button className="join-item btn">99</button>
-        <button className="join-item btn">100</button>
-      </div>
-      <button className="btn btn-outline">Next</button>
+    <div className="!flex justify-center w-full join">
+      <button
+        onClick={getPrev}
+        disabled={!hasPrev}
+        className={tw(`join-item btn ${!hasPrev && "btn-disabled"}`)}
+      >
+        «
+      </button>
+      <button className="join-item btn">{currentPage}</button>
+      <button
+        onClick={getNext}
+        disabled={!hasNext}
+        className={tw(`join-item btn ${!hasNext && "btn-disabled"}`)}
+      >
+        »
+      </button>
     </div>
   );
 };
