@@ -1,9 +1,11 @@
 import { divProps, productType, URL_LINKS } from "@/constants";
+import { truncateStr } from "@/utils";
 import { Link } from "react-router";
 
 type ProductProps = divProps & {
   product: productType;
 };
+
 export const Product = ({ product, className = "", ...rest }: ProductProps) => {
   return (
     <div className={`shadow-xl card bg-base-100 ${className} `} {...rest}>
@@ -17,9 +19,7 @@ export const Product = ({ product, className = "", ...rest }: ProductProps) => {
       <div className="card-body ">
         <h2 className="card-title">{product.title}</h2>
         <p className="">
-          {product.description.length > 150
-            ? `${product.description.slice(0, 150)} ...`
-            : product.description}
+          {truncateStr(product.description, product.description.length)}
         </p>
         <div className="justify-end card-actions">
           <Link
