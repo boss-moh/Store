@@ -17,12 +17,13 @@ export default {
         gray: "#F2F0F1",
         "gray-60": "#5d5d5d",
         "gray-10": "#e7e7e7",
+        "gray-word": "#94a3b8",
       },
       fontFamily: {
         sans: ["Jost", "Arial", "sans-serif"],
       },
       gridTemplateColumns: {
-        3: "repeat(auto-fill, minmax(250px, 1fr))",
+        "3-250px": "repeat(auto-fill, minmax(250px, 1fr))",
       },
     },
   },

@@ -12,7 +12,7 @@ export const Product = ({ product, className = "", ...rest }: ProductProps) => {
       <figure>
         <img
           className="h-80"
-          src={product.images[0]}
+          src={product.thumbnail}
           alt={`${product.title} Image`}
         />
       </figure>
@@ -25,6 +25,7 @@ export const Product = ({ product, className = "", ...rest }: ProductProps) => {
           <Link
             to={URL_LINKS.PRODUCT(String(product.id))}
             className="w-full btn btn-primary"
+            state={{ product }}
           >
             View
           </Link>
