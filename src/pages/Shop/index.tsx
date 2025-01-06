@@ -40,7 +40,7 @@ export const ShopPage = () => {
           <article className="flex-grow space-y-4">
             <Header />
             <div className="space-y-3 ">
-              <div className="grid grid-flow-row grid-cols-3 gap-10 ">
+              <div className="grid grid-flow-row gap-10 grid-cols-3-250px ">
                 {products.map((product) => (
                   <Product key={product.id} product={product} />
                 ))}
