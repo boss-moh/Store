@@ -8,20 +8,27 @@ import { ReactQueryLib } from "@/libs";
 import { Drawer } from "./components/index.ts";
 import NavLinks from "./components/Nav/NavLinks/index.tsx";
 import { Logo } from "@/components";
+import { ShopContextProvider } from "./context/shop/index.tsx";
 createRoot(document.getElementById("root")!).render(
-  <ReactQueryLib>
-    <BrowserRouter>
-      <StrictMode>
-        <Drawer id="drawer-shop" titleComponent={"Shop"} className="drawer-end">
+  <StrictMode>
+    <ReactQueryLib>
+      <BrowserRouter>
+        <ShopContextProvider>
           <Drawer
-            id="drawer-nav-links"
-            titleComponent={<Logo />}
-            drawerContent={<NavLinks />}
+            id="drawer-shop"
+            titleComponent={"Shop"}
+            className="drawer-end"
           >
-            <App />
+            <Drawer
+              id="drawer-nav-links"
+              titleComponent={<Logo />}
+              drawerContent={<NavLinks />}
+            >
+              <App />
+            </Drawer>
           </Drawer>
-        </Drawer>
-      </StrictMode>
-    </BrowserRouter>
-  </ReactQueryLib>
+        </ShopContextProvider>
+      </BrowserRouter>
+    </ReactQueryLib>
+  </StrictMode>
 );

@@ -4,6 +4,8 @@ import ProductViewer from "./ProductViewer";
 import { Counter, RatingStars } from "@/components";
 import { calcReview } from "@/utils";
 import Review from "./Review";
+import { useShopContext } from "@/context/shop";
+import { useState } from "react";
 
 const ProductPage = () => {
   const { state } = useLocation();
@@ -11,6 +13,7 @@ const ProductPage = () => {
   const { title, rating, price, description, reviews } = product;
   const reviewsCount = reviews.length;
   const { minuseRate, rateFormFive } = calcReview(rating);
+  console.log("ProductPage");
   return (
     <div className="px-6 py-4 ">
       <div className=" breadcrumbs">
@@ -47,12 +50,7 @@ const ProductPage = () => {
             </header>
             <div className="space-y-4">
               <p>{description}</p>
-              <article className="flex gap-2">
-                <Counter />
-                <button className="flex-grow btn btn-primary ">
-                  Add To Card
-                </button>
-              </article>
+              <Actions product={product} />
             </div>
           </article>
 
@@ -79,3 +77,26 @@ const ProductPage = () => {
 };
 
 export default ProductPage;
+
+const Actions = ({ product }: { product: productType }) => {
+  const { addToCart } = useShopContext();
+  const [quantity, setQuantity] = useState(1);
+  function handleClick(changeCount: number) {
+    setQuantity((prev) => prev + changeCount);
+  }
+  const shopItem = {
+    product,
+    quantity,
+  };
+  return (
+    <article className="flex gap-2">
+      <Counter count={quantity} handleClick={handleClick} />
+      <button
+        className="flex-grow btn btn-primary "
+        onClick={() => addToCart(shopItem)}
+      >
+        Add To Card
+      </button>
+    </article>
+  );
+};

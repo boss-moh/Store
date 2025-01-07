@@ -1,12 +1,13 @@
 import { MinuesIcon, PlusIcon } from "@/assets/icons";
 import { tw } from "@/libs";
-import { useState } from "react";
 
-export const Counter = () => {
-  const [count, setCount] = useState(1);
-  function handleClick(changeCount: number) {
-    setCount((prev) => prev + changeCount);
-  }
+export const Counter = ({
+  count,
+  handleClick,
+}: {
+  count: number;
+  handleClick: (value: number) => void;
+}) => {
   const hasPrev = count > 1;
   return (
     <div className=" join">
