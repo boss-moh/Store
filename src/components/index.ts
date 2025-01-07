@@ -8,3 +8,4 @@ export * from "./Pagination";
 export * from "./Logo";
 export * from "./ratingStars";
 export * from "./counter";
+export * from "./ShopCard";

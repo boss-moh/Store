@@ -5,7 +5,8 @@ export interface ShopContextType {
   // For example:
   products: ShopItem[];
   addToCart: (shopItem: ShopItem) => void;
-  removeFromCart: (productId: string) => void;
+  removeFromCart: (productId: number) => void;
+  changeQuantity: (productId: number, quantity: number) => void;
 }
 
 export interface ShopItem {
@@ -15,4 +16,11 @@ export interface ShopItem {
 
 export type ShopAction =
   | { type: "ADD_TO_CART"; payload: ShopItem }
-  | { type: "REMOVE_FROM_CART"; payload: string };
+  | { type: "REMOVE_FROM_CART"; payload: number }
+  | {
+      type: "CHANGE_QUANTITY";
+      payload: {
+        id: number;
+        quantity: number;
+      };
+    };

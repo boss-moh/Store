@@ -26,26 +26,40 @@ const shopReducer = (
         ...state,
 
         products: state.products.filter(
-          (item) => item.product.id !== Number(action.payload)
+          (item) => item.product.id !== action.payload
         ),
+      };
+
+    case "CHANGE_QUANTITY":
+      return {
+        ...state,
+        products: state.products.map((item) => {
+          const quantity = item.quantity + action.payload.quantity;
+          return item.product.id == action.payload.id
+            ? { ...item, quantity }
+            : item;
+        }),
       };
 
     default:
       return state;
   }
 };
-const useShopReducer = (initialShopContext: ShopContextType) => {
+export const useShopReducer = (initialShopContext: ShopContextType) => {
   const [state, dispatch] = useReducer(shopReducer, initialShopContext);
 
   const addToCart = (product: ShopItem) => {
     dispatch({ type: "ADD_TO_CART", payload: product });
   };
 
-  const removeFromCart = (productId: string) => {
+  const removeFromCart = (productId: number) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: productId });
   };
+  const changeQuantity = (productId: number, quantity: number) => {
+    dispatch({ type: "CHANGE_QUANTITY", payload: { id: productId, quantity } });
+  };
 
-  return { ...state, addToCart, removeFromCart };
+  return { ...state, addToCart, removeFromCart, changeQuantity };
 };
 
 export default useShopReducer;

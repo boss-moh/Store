@@ -10,6 +10,7 @@ const initialShopContext: ShopContextType = {
   products: [],
   addToCart: () => {},
   removeFromCart: () => {},
+  changeQuantity: () => {},
 };
 
 // Create the context

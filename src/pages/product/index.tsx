@@ -4,7 +4,7 @@ import ProductViewer from "./ProductViewer";
 import { Counter, RatingStars } from "@/components";
 import { calcReview } from "@/utils";
 import Review from "./Review";
-import { useShopContext } from "@/context/shop";
+import { useShopContext } from "@/context";
 import { useState } from "react";
 
 const ProductPage = () => {
@@ -13,7 +13,6 @@ const ProductPage = () => {
   const { title, rating, price, description, reviews } = product;
   const reviewsCount = reviews.length;
   const { minuseRate, rateFormFive } = calcReview(rating);
-  console.log("ProductPage");
   return (
     <div className="px-6 py-4 ">
       <div className=" breadcrumbs">
