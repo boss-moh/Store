@@ -2,6 +2,7 @@ import { Outlet } from "react-router";
 import { Nav } from "@/components";
 
 export const RootLayout = () => {
+  console.log("RootLayout");
   return (
     <div className="container max-w-screen-xl mx-auto ">
       <header>
