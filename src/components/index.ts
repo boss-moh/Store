@@ -6,3 +6,6 @@ export * from "./DropDown";
 export * from "./Drawer";
 export * from "./Pagination";
 export * from "./Logo";
+export * from "./ratingStars";
+export * from "./counter";
+export * from "./ShopCard";

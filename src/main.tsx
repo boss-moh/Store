@@ -1,27 +1,35 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
+
 import App from "./App.tsx";
 import "./index.css";
 
-import { BrowserRouter } from "react-router";
 import { ReactQueryLib } from "@/libs";
-import { Drawer } from "./components/index.ts";
 import NavLinks from "./components/Nav/NavLinks/index.tsx";
-import { Logo } from "@/components";
+import { Logo, ShopCard, Drawer } from "@/components";
+import { ShopContextProvider } from "./context";
 createRoot(document.getElementById("root")!).render(
-  <ReactQueryLib>
-    <BrowserRouter>
-      <StrictMode>
-        <Drawer id="drawer-shop" titleComponent={"Shop"} className="drawer-end">
+  <StrictMode>
+    <ReactQueryLib>
+      <BrowserRouter>
+        <ShopContextProvider>
           <Drawer
-            id="drawer-nav-links"
-            titleComponent={<Logo />}
-            drawerContent={<NavLinks />}
+            id="drawer-shop"
+            drawerContent={<ShopCard />}
+            titleComponent={"Shop"}
+            className=" drawer-end"
           >
-            <App />
+            <Drawer
+              id="drawer-nav-links"
+              titleComponent={<Logo />}
+              drawerContent={<NavLinks />}
+            >
+              <App />
+            </Drawer>
           </Drawer>
-        </Drawer>
-      </StrictMode>
-    </BrowserRouter>
-  </ReactQueryLib>
+        </ShopContextProvider>
+      </BrowserRouter>
+    </ReactQueryLib>
+  </StrictMode>
 );

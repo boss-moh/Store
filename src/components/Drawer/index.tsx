@@ -37,7 +37,7 @@ export const Drawer = ({
           className="drawer-overlay"
         />
         <Card
-          className="w-64 h-full max-w-xs bg-white rounded-l-none drawer-content"
+          className="h-full bg-white rounded-l-none drawer-content"
           aria-label="Side bar"
         >
           <header className="flex items-center gap-4">
