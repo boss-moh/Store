@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+// import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
 
@@ -10,26 +10,26 @@ import NavLinks from "./components/Nav/NavLinks/index.tsx";
 import { Logo, ShopCard, Drawer } from "@/components";
 import { ShopContextProvider } from "./context";
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ReactQueryLib>
-      <BrowserRouter>
-        <ShopContextProvider>
+  // <StrictMode>
+  <ReactQueryLib>
+    <BrowserRouter>
+      <ShopContextProvider>
+        <Drawer
+          id="drawer-shop"
+          drawerContent={<ShopCard />}
+          titleComponent={"Shop"}
+          className=" drawer-end"
+        >
           <Drawer
-            id="drawer-shop"
-            drawerContent={<ShopCard />}
-            titleComponent={"Shop"}
-            className=" drawer-end"
+            id="drawer-nav-links"
+            titleComponent={<Logo />}
+            drawerContent={<NavLinks />}
           >
-            <Drawer
-              id="drawer-nav-links"
-              titleComponent={<Logo />}
-              drawerContent={<NavLinks />}
-            >
-              <App />
-            </Drawer>
+            <App />
           </Drawer>
-        </ShopContextProvider>
-      </BrowserRouter>
-    </ReactQueryLib>
-  </StrictMode>
+        </Drawer>
+      </ShopContextProvider>
+    </BrowserRouter>
+  </ReactQueryLib>
+  // </StrictMode>
 );

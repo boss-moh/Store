@@ -1,10 +1,10 @@
 import { ArrowIcon } from "@/assets/icons";
 import { DropDown } from "@/components";
 
-export const Header = () => {
+export const Header = ({ category }: { category: string }) => {
   return (
     <header className="flex-grow space-between">
-      <h2>Casual</h2>
+      <h2>{category}</h2>
       <div>
         Showing 1-10 of 100 Products Sort by:
         <DropDown

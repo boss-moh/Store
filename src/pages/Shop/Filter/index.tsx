@@ -46,7 +46,7 @@ const FilterSection = ({ className = "", ...rest }: divProps) => {
           )}
 
           {categories?.map((category) => (
-            <AsideLink key={category} to={"/"}>
+            <AsideLink key={category} to={`?category=${category}`}>
               {category}
             </AsideLink>
           ))}

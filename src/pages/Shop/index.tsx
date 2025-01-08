@@ -1,21 +1,24 @@
 import { URL_LINKS, useProducts } from "@/constants";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import FilterSection from "./Filter";
 import Header from "./header";
 import Product from "./Product";
 import { AlertMessage, Card, Pagination } from "@/components";
+import { usePagiation } from "@/hooks";
 
 export const ShopPage = () => {
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category") ?? "";
+
   const {
-    products,
     currentPage,
-    onPagtion,
+    handlePagination: onPagtion,
     hasPrev,
     hasNext,
-    isLoading,
-    isError,
-    error,
-  } = useProducts();
+  } = usePagiation();
+
+  const { products, isLoading, isError, error } = useProducts();
+
   return (
     <div className="px-6 py-4 ">
       <section>
@@ -27,6 +30,11 @@ export const ShopPage = () => {
             <li>
               <Link to={URL_LINKS.SHOP}>Shop</Link>
             </li>
+            {category && (
+              <li>
+                <Link to={"/"}>{category}</Link>
+              </li>
+            )}
           </ul>
         </div>
       </section>
@@ -38,7 +46,7 @@ export const ShopPage = () => {
           <AlertMessage className=" h-fit">{error.message}</AlertMessage>
         ) : (
           <article className="flex-grow space-y-4">
-            <Header />
+            <Header category={category || "All Products"} />
             <div className="space-y-3 ">
               <div className="grid grid-flow-row gap-10 grid-cols-3-250px ">
                 {products.map((product) => (

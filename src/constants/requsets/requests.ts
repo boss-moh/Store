@@ -1,55 +1,47 @@
 import { API_END_POINT, categoryType, productType } from "@/constants";
 import { useQuery, axios } from "@/libs";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router";
 
-const getPage = (count: number, elements: number) =>
-  Math.ceil(count / elements);
-
+type returenData = {
+  products: productType[];
+  total: number;
+};
 export const useProducts = () => {
-  const [page, setPage] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const category = searchParams.get("category") ?? "";
+  const skip = searchParams.get("skip") ?? "";
 
-  type returenData = {
-    limit: number;
-    products: productType[];
-    skip: number;
-    total: number;
-  };
   const {
-    data: { products, limit, skip, total },
+    data: { products, total },
     ...rest
   } = useQuery({
-    queryKey: ["products", page],
+    queryKey: ["products", category, skip],
     queryFn: () =>
-      axios.get(API_END_POINT.GET_PRODUCTS(page * 9)) as Promise<returenData>,
+      axios.get(
+        category
+          ? API_END_POINT.GET_PRODUCTS_BY_CATEGORY(category)
+          : API_END_POINT.GET_PRODUCTS(searchParams.toString())
+      ) as Promise<returenData>,
     initialData: {
-      limit: 0,
       products: [],
-      skip: 0,
       total: 0,
     },
   });
 
-  const pages = getPage(total, limit);
-  const currentPage = getPage(skip, limit) || 0;
-  const hasNext = currentPage !== pages - 1;
-  const hasPrev = currentPage !== 0;
-
-  const handlePagination = (test: string) => {
-    if (test === "+") {
-      if (hasNext) setPage(page + 1);
-    } else {
-      if (hasPrev) setPage(page - 1);
+  useEffect(() => {
+    if (total) {
+      searchParams.set("total", total.toString());
+      setSearchParams(searchParams);
     }
-  };
+  }, [total]);
+
   return {
     products,
-    hasNext,
-    hasPrev,
-    currentPage: currentPage + 1,
-    onPagtion: handlePagination,
     ...rest,
   };
 };
+
 export const useCategories = () => {
   const { data: categories, ...rest } = useQuery({
     queryKey: ["CATEGORIES"],
