@@ -17,7 +17,7 @@ export const ShopPage = () => {
     hasNext,
   } = usePagiation();
 
-  const { products, isLoading, isError, error } = useProducts();
+  const { products, isFetching: isLoading, isError, error } = useProducts();
 
   return (
     <div className="px-6 py-4 ">
@@ -53,23 +53,20 @@ export const ShopPage = () => {
                   <Product key={product.id} product={product} />
                 ))}
                 {isLoading &&
-                  products.length === 0 &&
                   Array(10)
                     .fill(0)
-                    .map(() => (
-                      <Card className="space-y-4 shadow-sm ">
-                        <div className="h-60 skeleton"></div>
-                        <div className="space-y-4">
+                    .map((_, key) => (
+                      <Card className="space-y-4 shadow-sm " key={key}>
+                        <div className="h-80 skeleton"></div>
+                        <div className="h-4 skeleton"></div>
+                        <div className="space-y-1">
                           <div className="h-4 skeleton"></div>
-                          <div className="space-y-1">
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                          </div>
-                          <div className="h-8 rounded-md skeleton"></div>
+                          <div className="h-4 skeleton"></div>
+                          <div className="h-4 skeleton"></div>
+                          <div className="h-4 skeleton"></div>
+                          <div className="h-4 skeleton"></div>
                         </div>
+                        <div className="h-8 rounded-md skeleton"></div>
                       </Card>
                     ))}
               </div>

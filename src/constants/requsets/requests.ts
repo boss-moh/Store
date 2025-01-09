@@ -12,10 +12,7 @@ export const useProducts = () => {
   const category = searchParams.get("category") ?? "";
   const skip = searchParams.get("skip") ?? "";
 
-  const {
-    data: { products, total },
-    ...rest
-  } = useQuery({
+  const { data, ...rest } = useQuery({
     queryKey: ["products", category, skip],
     queryFn: () =>
       axios.get(
@@ -28,6 +25,8 @@ export const useProducts = () => {
       total: 0,
     },
   });
+
+  const { total, products = [] } = data ?? {};
 
   useEffect(() => {
     if (total) {
