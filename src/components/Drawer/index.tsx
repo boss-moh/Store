@@ -1,11 +1,13 @@
 import { ArrowIcon } from "@/assets/icons";
 import Card from "../Card";
 import { ChildrenType, divProps } from "@/constants";
+import { tw } from "@/libs";
 
 type DrawerProps = divProps & {
   titleComponent: ChildrenType;
   children: ChildrenType;
   drawerContent?: ChildrenType;
+  drawerClassName?: string;
   id: string;
 };
 /**
@@ -19,10 +21,11 @@ export const Drawer = ({
   drawerContent,
   className,
   id,
+  drawerClassName = "",
   ...rest
 }: DrawerProps) => {
   return (
-    <div className={`drawer ${className}`} {...rest}>
+    <div className={`drawer  ${className}`} {...rest}>
       <input id={id} type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
         {/* Page content here */}
@@ -37,7 +40,10 @@ export const Drawer = ({
           className="drawer-overlay"
         />
         <Card
-          className="h-full bg-white rounded-l-none drawer-content"
+          className={tw(
+            " min-h-full bg-white rounded-l-none  w-full md:max-w-xs  drawer-content",
+            drawerClassName
+          )}
           aria-label="Side bar"
         >
           <header className="flex items-center gap-4">
