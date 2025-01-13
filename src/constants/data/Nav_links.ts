@@ -9,6 +9,8 @@ const NAV_LINKS = [
   { text: "new Arrivals", link: "/" },
   { text: "brands", link: "/" },
 ] as const;
+// export type of Nav
+// const t = Partial typeof NAV_LINKS
 
 export { NAV_LINKS };
 export default NAV_LINKS;

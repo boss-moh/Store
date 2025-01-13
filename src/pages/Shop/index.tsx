@@ -4,21 +4,23 @@ import FilterSection from "./Filter";
 import Header from "./header";
 import Product from "./Product";
 import { AlertMessage, Card, Pagination } from "@/components";
+import { useIsMobile } from "@/hooks";
 
 export const ShopPage = () => {
+  const isMobile = useIsMobile();
   const {
     products,
     currentPage,
     onPagtion,
     hasPrev,
     hasNext,
-    isLoading,
+    isFetching: isLoading,
     isError,
     error,
   } = useProducts();
   return (
     <div className="px-6 py-4 ">
-      <section>
+      <article>
         <div className=" breadcrumbs">
           <ul>
             <li>
@@ -29,10 +31,12 @@ export const ShopPage = () => {
             </li>
           </ul>
         </div>
-      </section>
+      </article>
 
       <section className="flex gap-8">
-        <FilterSection className="flex-shrink-0 hidden max-w-72 md:block " />
+        {!isMobile && (
+          <FilterSection className="flex-shrink-0 hidden max-w-72 md:block " />
+        )}
 
         {isError ? (
           <AlertMessage className=" h-fit">{error.message}</AlertMessage>
