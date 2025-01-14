@@ -11,37 +11,40 @@ export default function ProductViewer({
   product: { images, title },
 }: ProductViewerProps) {
   const [selectedImage, setSelectedImage] = useState(0);
+  const isItHasManyImages = images.length > 1;
 
   return (
-    <Card className="flex flex-col gap-2 md:max-w-md lg:flex-row-reverse">
+    <Card className="flex flex-col w-full max-w-md gap-2 mx-auto h-fit lg:flex-row-reverse ">
       {/* Main Image */}
-      <div className="relative w-full rounded-lg bg-gray-10 basis-3/4">
+      <div className="relative w-full p-2 rounded-lg bg-gray-10 basis-3/4 ">
         <img
           src={images[selectedImage]}
           alt={title}
-          className="object-contain w-full h-full rounded"
+          className="object-contain w-full rounded h-80 lg:h-full aspect-square"
         />
       </div>
 
       {/* Thumbnail Gallery */}
-      <div className="flex gap-2 lg:flex-col basis-1/4">
-        {images.map((image, index) => (
-          <button
-            key={index}
-            onClick={() => setSelectedImage(index)}
-            className={tw(
-              `  basis-full bg-gray-10 rounded-md transition-all border-2 border-white `,
-              selectedImage === index && "border-gray-60 "
-            )}
-          >
-            <img
-              src={image}
-              alt={title}
-              className="object-contain w-full h-full "
-            />
-          </button>
-        ))}
-      </div>
+      {isItHasManyImages ? (
+        <div className="flex gap-2 lg:flex-col basis-1/4">
+          {images.map((image, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedImage(index)}
+              className={tw(
+                `   bg-gray-10 rounded-md transition-all border-2 border-white basis-1/3 p-2  `,
+                selectedImage === index && "border-gray-60 "
+              )}
+            >
+              <img
+                src={image}
+                alt={title}
+                className="object-contain w-full h-20 rounded lg:h-full aspect-square"
+              />
+            </button>
+          ))}
+        </div>
+      ) : null}
     </Card>
   );
 }

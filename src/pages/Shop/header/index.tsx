@@ -1,11 +1,11 @@
 import { FilterIcon } from "@/assets/icons";
 import { useIsMobile } from "@/hooks";
 
-export const Header = () => {
+export const Header = ({ category }: { category: string }) => {
   const isMobile = useIsMobile();
   return (
     <header className="flex-grow space-between">
-      <h2>Casual</h2>
+      <h2>{category}</h2>
       <div>
         {/* Showing 1-10 of 100 Products Sort by: */}
         {/* <DropDown
