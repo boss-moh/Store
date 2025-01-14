@@ -1,11 +1,10 @@
 import { productType, URL_LINKS } from "@/constants";
 import { Link, useLocation } from "react-router";
 import ProductViewer from "./ProductViewer";
-import { Counter, RatingStars } from "@/components";
+import { RatingStars } from "@/components";
 import { calcReview } from "@/utils";
 import Review from "./Review";
-import { useShopContext } from "@/context";
-import { useState } from "react";
+import ActionsButtons from "./Actions";
 
 const ProductPage = () => {
   const { state } = useLocation();
@@ -28,74 +27,48 @@ const ProductPage = () => {
           </li>
         </ul>
       </div>
-      <section className="flex flex-col gap-4 md:flex-row">
-        <ProductViewer product={product} />
-        <div>
-          <article>
-            <header className="space-y-2">
-              <h2 className="text-3xl font-bold ">{title}</h2>
-              <div
-                className="flex items-center gap-4"
-                aria-label="rating of the product "
-              >
-                <RatingStars minuseRate={minuseRate} rate={rateFormFive} />
-                <span aria-label="rate">{rating} / 5</span>
+      <section className="space-y-4">
+        <div className="flex flex-col gap-4 md:flex-row">
+          <ProductViewer product={product} />
+          <div>
+            <article>
+              <header className="space-y-2">
+                <h2 className="text-3xl font-bold ">{title}</h2>
+                <div
+                  className="flex items-center gap-4"
+                  aria-label="rating of the product "
+                >
+                  <RatingStars minuseRate={minuseRate} rate={rateFormFive} />
+                  <span aria-label="rate">{rating} / 5</span>
+                </div>
+                <div>
+                  <span className="text-2xl " aria-label="price">
+                    {price}$
+                  </span>
+                </div>
+              </header>
+              <div className="space-y-4">
+                <p>{description}</p>
+                <ActionsButtons product={product} />
               </div>
-              <div>
-                <span className="text-2xl " aria-label="price">
-                  {price}$
-                </span>
-              </div>
-            </header>
-            <div className="space-y-4">
-              <p>{description}</p>
-              <Actions product={product} />
-            </div>
-          </article>
-
-          <article>
-            <h3 className="text-2xl">Rating & Reviews</h3>
-            <div>
-              <h4 className="text-xl">
-                All Reviews
-                <span className="text-base text-gray-word ">
-                  ({reviewsCount})
-                </span>
-              </h4>
-              <article className="flex flex-wrap justify-center gap-4">
-                {reviews.map((review) => (
-                  <Review review={review} />
-                ))}
-              </article>
-            </div>
-          </article>
+            </article>
+          </div>
         </div>
+        <article className="space-y-2">
+          <h3 className="text-2xl">Rating & Reviews</h3>
+          <h4 className="text-xl">
+            All Reviews
+            <span className="text-base text-gray-word ">({reviewsCount})</span>
+          </h4>
+          <article className="flex flex-wrap gap-4">
+            {reviews.map((review, index) => (
+              <Review key={index} review={review} />
+            ))}
+          </article>
+        </article>
       </section>
     </div>
   );
 };
 
 export default ProductPage;
-
-const Actions = ({ product }: { product: productType }) => {
-  const { addToCart } = useShopContext();
-  const [quantity, setQuantity] = useState(1);
-  function handleClick(changeCount: number) {
-    setQuantity((prev) => prev + changeCount);
-  }
-  const shopItem = {
-    product,
-    quantity,
-  };
-  return (
-    <article className="flex gap-2">
-      <Counter count={quantity} handleClick={handleClick} />
-      <button
-        className="flex-grow btn btn-primary "
-        onClick={() => addToCart(shopItem)}
-      >
-        Add To Card
-      </button>
-    </article>
-  );
-};

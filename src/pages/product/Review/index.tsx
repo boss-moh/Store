@@ -8,7 +8,7 @@ type ReviewProps = {
 export const Review = ({ review }: ReviewProps) => {
   const { minuseRate, rateFormFive } = calcReview(review.rating);
   return (
-    <Card key={review.reviewerName}>
+    <Card className="flex-grow" key={review.reviewerName}>
       <RatingStars minuseRate={minuseRate} rate={rateFormFive} />
       <h5>{review.reviewerName}</h5>
       <p className=" text-gray-word">{review.comment}</p>
