@@ -62,7 +62,6 @@ export const useCategories = () => {
     queryFn: () =>
       axios.get(API_END_POINT.CATEGORIES) as Promise<categoryType[]>,
     staleTime: Infinity,
-    initialData: [],
   });
 
   return {
