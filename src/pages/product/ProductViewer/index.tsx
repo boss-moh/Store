@@ -16,7 +16,12 @@ export default function ProductViewer({
   return (
     <Card className="flex flex-col w-full max-w-md gap-2 mx-auto h-fit lg:flex-row-reverse ">
       {/* Main Image */}
-      <div className="relative w-full p-2 rounded-lg bg-gray-10 basis-3/4 ">
+      <div
+        className={tw(
+          "relative w-full p-2 rounded-lg bg-gray-10   ",
+          isItHasManyImages && " basis-3/4 "
+        )}
+      >
         <img
           src={images[selectedImage]}
           alt={title}
@@ -26,13 +31,13 @@ export default function ProductViewer({
 
       {/* Thumbnail Gallery */}
       {isItHasManyImages ? (
-        <div className="flex gap-2 lg:flex-col basis-1/4">
+        <div className="flex flex-wrap justify-center *:flex-grow  gap-2 lg:flex-nowrap lg:flex-col basis-1/4">
           {images.map((image, index) => (
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
               className={tw(
-                `   bg-gray-10 rounded-md transition-all border-2 border-white basis-1/3 p-2  `,
+                `   bg-gray-10 rounded-md transition-all border-2 border-white basis-1/4 p-2  `,
                 selectedImage === index && "border-gray-60 "
               )}
             >

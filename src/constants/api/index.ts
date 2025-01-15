@@ -6,4 +6,5 @@ export const API_END_POINT = {
   GET_PRODUCTS: (params: string) => `products?${params}`,
   GET_PRODUCTS_BY_CATEGORY: (category: string) =>
     `products/category/${category}`,
+  GET_PRODUCTS_BY_SEARCH: (search: string) => `products/search?q=${search}`,
 } as const;
