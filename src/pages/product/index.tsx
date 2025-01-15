@@ -30,29 +30,25 @@ const ProductPage = () => {
       <section className="space-y-4">
         <div className="flex flex-col gap-4 md:flex-row">
           <ProductViewer product={product} />
-          <div>
-            <article>
-              <header className="space-y-2">
-                <h2 className="text-3xl font-bold ">{title}</h2>
-                <div
-                  className="flex items-center gap-4"
-                  aria-label="rating of the product "
-                >
-                  <RatingStars minuseRate={minuseRate} rate={rateFormFive} />
-                  <span aria-label="rate">{rating} / 5</span>
-                </div>
-                <div>
-                  <span className="text-2xl " aria-label="price">
-                    {price}$
-                  </span>
-                </div>
-              </header>
-              <div className="space-y-4">
-                <p>{description}</p>
-                <ActionsButtons product={product} />
+          <article className="space-y-6">
+            <header className="space-y-2">
+              <h2 className="text-3xl font-bold ">{title}</h2>
+              <div
+                className="flex items-center gap-4"
+                aria-label="rating of the product "
+              >
+                <RatingStars minuseRate={minuseRate} rate={rateFormFive} />
+                <span aria-label="rate">{rating} / 5</span>
               </div>
-            </article>
-          </div>
+              <div>
+                <span className="text-2xl " aria-label="price">
+                  {price}$
+                </span>
+              </div>
+            </header>
+            <p>{description}</p>
+            <ActionsButtons product={product} />
+          </article>
         </div>
         <article className="space-y-2">
           <h3 className="text-2xl">Rating & Reviews</h3>

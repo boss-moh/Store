@@ -54,11 +54,12 @@ export const ShopPage = () => {
             <Header category={category || "All Products"} />
             <div className="space-y-3 ">
               <div className="grid grid-flow-row gap-10 grid-cols-3-250px ">
-                {products.map((product) => (
-                  <Product key={product.id} product={product} />
-                ))}
+                {!isLoading &&
+                  products.map((product) => (
+                    <Product key={product.id} product={product} />
+                  ))}
                 {isLoading &&
-                  Array(10)
+                  Array(9)
                     .fill(0)
                     .map((_, key) => (
                       <Card className="space-y-4 shadow-sm " key={key}>

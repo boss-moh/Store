@@ -16,7 +16,12 @@ export default function ProductViewer({
   return (
     <Card className="flex flex-col w-full max-w-md gap-2 mx-auto h-fit lg:flex-row-reverse ">
       {/* Main Image */}
-      <div className="relative w-full p-2 rounded-lg bg-gray-10 basis-3/4 ">
+      <div
+        className={tw(
+          "relative w-full p-2 rounded-lg bg-gray-10   ",
+          isItHasManyImages && " basis-3/4 "
+        )}
+      >
         <img
           src={images[selectedImage]}
           alt={title}
