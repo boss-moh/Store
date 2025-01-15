@@ -10,10 +10,10 @@ type returenData = {
 export const useProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category") ?? "";
-  const skip = searchParams.get("skip") ?? "";
+  const skip = searchParams.get("skip") ?? "0";
 
   const { data, ...rest } = useQuery({
-    queryKey: ["products", category, skip],
+    queryKey: ["products", category, skip].filter(Boolean),
     queryFn: () =>
       axios.get(
         category
