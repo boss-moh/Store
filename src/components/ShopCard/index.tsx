@@ -43,7 +43,7 @@ export const ShopCard = () => {
                 />
               ))}
             </article>
-            <article>
+            <article className="space-y-4">
               <header>
                 <h3 className="text-lg font-bold">Order Summary</h3>
               </header>
@@ -62,6 +62,11 @@ export const ShopCard = () => {
                   <span>${after}</span>
                 </p>
               </article>
+              <footer>
+                <button className="w-full btn btn-primary">
+                  Go For Check Out{" "}
+                </button>
+              </footer>
             </article>
           </section>
         ) : (

@@ -31,7 +31,7 @@ export default function ProductViewer({
 
       {/* Thumbnail Gallery */}
       {isItHasManyImages ? (
-        <div className="flex gap-2 lg:flex-col basis-1/4">
+        <div className="flex flex-wrap justify-center *:flex-grow  gap-2 lg:flex-nowrap lg:flex-col basis-1/4">
           {images.map((image, index) => (
             <button
               key={index}
