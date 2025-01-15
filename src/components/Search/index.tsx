@@ -1,27 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Input } from "@/components/input";
-import { useSearchParams } from "react-router";
+import { useSearch } from "./useSearch";
 
 export const Search = () => {
-  const [search, setSearch] = useState("");
-  const [, setSearchParams] = useSearchParams();
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
+  const { search, handleSearch } = useSearch();
+
+  const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
-    console.log(search);
-    const timeout = setTimeout(() => {
-      setSearchParams({ search });
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, [search]);
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check for Windows key (metaKey) or Command key (metaKey) + K
+      if ((event.metaKey || event.ctrlKey) && event.key === "k") {
+        event.preventDefault(); // Prevent default browser behavior
+        inputRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <Input
-      className="hidden lg:flex"
       InputProps={{
         placeholder: "Search For Product",
         onChange: handleSearch,
         value: search,
+        ref: inputRef,
+        "aria-label": "Search Input For Products",
       }}
     />
   );

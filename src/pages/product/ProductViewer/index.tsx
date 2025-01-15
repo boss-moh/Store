@@ -37,7 +37,7 @@ export default function ProductViewer({
               key={index}
               onClick={() => setSelectedImage(index)}
               className={tw(
-                `   bg-gray-10 rounded-md transition-all border-2 border-white basis-1/3 p-2  `,
+                `   bg-gray-10 rounded-md transition-all border-2 border-white basis-1/4 p-2  `,
                 selectedImage === index && "border-gray-60 "
               )}
             >

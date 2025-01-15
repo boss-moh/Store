@@ -23,8 +23,8 @@ export const AllDrawers = ({ children }: childrenProps) => {
           <Drawer
             id="drawer-filter"
             titleComponent={"Filter"}
-            drawerContent={<FilterSection />}
-            className="w-full"
+            drawerContent={<FilterSection className="h-full" />}
+            className="w-full "
           >
             {children}
           </Drawer>

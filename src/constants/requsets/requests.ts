@@ -11,15 +11,29 @@ export const useProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category") ?? "";
   const skip = searchParams.get("skip") ?? "0";
+  const search = searchParams.get("search") ?? "";
+
+  const requestKey = ["products"];
+  let requestURL = API_END_POINT.GET_PRODUCTS(searchParams.toString());
+
+  let titleForUI = "All Products";
+
+  if (search) {
+    requestKey.push(search);
+    requestURL = API_END_POINT.GET_PRODUCTS_BY_SEARCH(search);
+    titleForUI = `Search for ${search}`;
+  } else if (category) {
+    requestKey.push(category);
+    requestURL = API_END_POINT.GET_PRODUCTS_BY_CATEGORY(category);
+    titleForUI = `${category} Products`;
+  }
+  if (skip) {
+    requestKey.push(skip);
+  }
 
   const { data, ...rest } = useQuery({
-    queryKey: ["products", category, skip].filter(Boolean),
-    queryFn: () =>
-      axios.get(
-        category
-          ? API_END_POINT.GET_PRODUCTS_BY_CATEGORY(category)
-          : API_END_POINT.GET_PRODUCTS(searchParams.toString())
-      ) as Promise<returenData>,
+    queryKey: requestKey,
+    queryFn: () => axios.get(requestURL) as Promise<returenData>,
     initialData: {
       products: [],
       total: 0,
@@ -38,6 +52,7 @@ export const useProducts = () => {
   return {
     products,
     ...rest,
+    titleForUI,
   };
 };
 

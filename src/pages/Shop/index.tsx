@@ -1,5 +1,5 @@
 import { URL_LINKS, useProducts } from "@/constants";
-import { Link, useSearchParams } from "react-router";
+import { Link } from "react-router";
 import FilterSection from "./Filter";
 import Header from "./header";
 import Product from "./Product";
@@ -10,8 +10,6 @@ import { useIsMobile } from "@/hooks";
 
 export const ShopPage = () => {
   const isMobile = useIsMobile();
-  const [searchParams] = useSearchParams();
-  const category = searchParams.get("category") ?? "";
 
   const {
     currentPage,
@@ -20,8 +18,15 @@ export const ShopPage = () => {
     hasNext,
   } = usePagiation();
 
-  const { products, isFetching: isLoading, isError, error } = useProducts();
+  const {
+    products,
+    isFetching: isLoading,
+    isError,
+    error,
+    titleForUI,
+  } = useProducts();
 
+  const isNoProducts = !isLoading && !products.length;
   return (
     <div className="px-6 py-4 ">
       <article>
@@ -33,9 +38,9 @@ export const ShopPage = () => {
             <li>
               <Link to={URL_LINKS.SHOP}>Shop</Link>
             </li>
-            {category && (
+            {titleForUI && (
               <li>
-                <Link to={"/"}>{category}</Link>
+                <Link to={"/"}>{titleForUI}</Link>
               </li>
             )}
           </ul>
@@ -46,12 +51,16 @@ export const ShopPage = () => {
         {!isMobile && (
           <FilterSection className="flex-shrink-0 hidden max-w-72 md:block " />
         )}
+        <article className="flex-grow space-y-4">
+          <Header category={titleForUI} />
 
-        {isError ? (
-          <AlertMessage className=" h-fit">{error.message}</AlertMessage>
-        ) : (
-          <article className="flex-grow space-y-4">
-            <Header category={category || "All Products"} />
+          {isError ? (
+            <AlertMessage className=" h-fit">{error.message}</AlertMessage>
+          ) : isNoProducts ? (
+            <AlertMessage className=" h-fit !alert-info">
+              There are No Products
+            </AlertMessage>
+          ) : (
             <div className="space-y-3 ">
               <div className="grid grid-flow-row gap-10 grid-cols-3-250px ">
                 {!isLoading &&
@@ -87,8 +96,8 @@ export const ShopPage = () => {
                 />
               </footer>
             </div>
-          </article>
-        )}
+          )}
+        </article>
       </section>
     </div>
   );
