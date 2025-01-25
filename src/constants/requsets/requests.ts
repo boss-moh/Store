@@ -65,7 +65,7 @@ export const useCategories = () => {
   });
 
   return {
-    categories,
+    categories: categories ?? [],
     ...rest,
   };
 };

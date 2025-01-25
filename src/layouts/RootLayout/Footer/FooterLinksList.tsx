@@ -10,10 +10,12 @@ export const FooterLinksList = ({ title, links }: FooterLinksListProps) => {
     <article className="">
       <h3 className="text-xl capitalize text-primary">{title}</h3>
       <ul className="gap-2 capitalize menu menu-vertical ">
-        {links.map((item) => (
-          <Link className="text-lg text-gray-60 " to={item} key={item}>
-            {item}
-          </Link>
+        {links.map((item, key) => (
+          <li key={key}>
+            <Link className="text-lg text-gray-60 " to={item} key={item}>
+              {item}
+            </Link>
+          </li>
         ))}
       </ul>
     </article>
