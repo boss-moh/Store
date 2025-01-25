@@ -1,9 +1,9 @@
 import { FilterIcon } from "@/assets/icons";
 import { AlertMessage, Card } from "@/components";
-import AsideLink from "../asideLink";
 import { divProps, useCategories } from "@/constants";
 import { useIsMobile } from "@/hooks";
 import Search from "@/components/Search";
+import { Link } from "react-router";
 
 const FilterSection = ({ className = "", ...rest }: divProps) => {
   const { categories, isPending, isError, isFetched, error } = useCategories();
@@ -41,9 +41,13 @@ const FilterSection = ({ className = "", ...rest }: divProps) => {
           )}
 
           {categories?.map((category) => (
-            <AsideLink key={category} to={`?category=${category}`}>
-              {category}
-            </AsideLink>
+            <Link
+              className={`flex items-center justify-between border-none btn-sm btn hover:bg-gray-10 btn-ghost ${className}`}
+              to={`?category=${category}`}
+              key={category}
+            >
+              <span>{category}</span>
+            </Link>
           ))}
 
           {isError && (
