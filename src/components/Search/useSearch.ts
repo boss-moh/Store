@@ -10,7 +10,6 @@ export const useSearch = () => {
     setSearch(e.target.value);
   };
   useEffect(() => {
-    console.log(search);
     const timeout = setTimeout(() => {
       setSearchParams({ search });
     }, 1000);

@@ -1,15 +1,29 @@
-import { productType, URL_LINKS } from "@/constants";
-import { Link, useLocation } from "react-router";
+import { API_END_POINT, productType, URL_LINKS } from "@/constants";
+import { Link, useLocation, useParams } from "react-router";
 import ProductViewer from "./ProductViewer";
 import { RatingStars } from "@/components";
 import { calcReview } from "@/utils";
 import Review from "./Review";
 import ActionsButtons from "./Actions";
+import { axios, useQuery } from "@/libs";
 
 const ProductPage = () => {
   const { state } = useLocation();
-  const product = state.product as productType;
-  const { title, rating, price, description, reviews } = product;
+  const { id } = useParams();
+
+  const productViaNavgivater = state?.product as productType;
+  const hasProductPassViaNavigiater = !!productViaNavgivater;
+
+  const { data: product, isLoading } = useQuery<productType>({
+    queryKey: [id],
+    queryFn: async () => axios.get(API_END_POINT.GET_PRODUCT(String(id))),
+    initialData: productViaNavgivater,
+    enabled: !hasProductPassViaNavigiater,
+  });
+
+  if (isLoading) return <p>Loading ...</p>;
+  const { title, rating, price, description, reviews = [] } = product;
+
   const reviewsCount = reviews.length;
   const { minuseRate, rateFormFive } = calcReview(rating);
   return (
@@ -23,7 +37,7 @@ const ProductPage = () => {
             <Link to={URL_LINKS.SHOP}>Shop</Link>
           </li>
           <li>
-            <Link to={URL_LINKS.SHOP}>{product.title}</Link>
+            <Link to={URL_LINKS.PRODUCT(String(id))}>{title}</Link>
           </li>
         </ul>
       </div>

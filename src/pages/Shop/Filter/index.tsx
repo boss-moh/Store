@@ -37,12 +37,22 @@ const FilterSection = ({ className = "", ...rest }: divProps) => {
               <div className="w-full h-4 skeleton"></div>
               <div className="w-full h-4 skeleton"></div>
               <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
+              <div className="w-full h-4 skeleton"></div>
             </div>
           )}
 
           {categories?.map((category) => (
             <Link
-              className={`flex items-center justify-between border-none btn-sm btn hover:bg-gray-10 btn-ghost ${className}`}
+              className={` border-none btn-sm btn hover:bg-gray-10 btn-ghost flex`}
               to={`?category=${category}`}
               key={category}
             >

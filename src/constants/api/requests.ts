@@ -8,7 +8,9 @@ type returenData = {
   total: number;
 };
 export const useProducts = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({
+    limit:"9"
+  });
   const category = searchParams.get("category") ?? "";
   const skip = searchParams.get("skip") ?? "0";
   const search = searchParams.get("search") ?? "";
