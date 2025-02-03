@@ -11,6 +11,7 @@ const initialShopContext: ShopContextType = {
   addToCart: () => {},
   removeFromCart: () => {},
   changeQuantity: () => {},
+  checkItem: (id: number) => !!id,
 };
 
 // Create the context
@@ -19,11 +20,6 @@ const ShopContext = createContext<ShopContextType>(initialShopContext);
 // Create the provider component
 
 export const ShopContextProvider = ({ children }: childrenProps) => {
-  // Add your state management logic here
-  // For example using useState:
-  // const [products, setProducts] = useState<any[]>([]);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState<string | null>(null);
   const value = useShopReducer(initialShopContext);
 
   return (

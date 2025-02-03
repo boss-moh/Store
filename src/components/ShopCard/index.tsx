@@ -1,57 +1,83 @@
 import { ShopItem, useShopContext } from "@/context";
-import { Card, Counter } from "@/components";
-import { TrashIcon } from "@/assets/icons";
+import ProductItem from "./ProductItem";
+import Card from "../Card";
+
+const calcPrice = (price: number, discountPercentage: number) => {
+  const discount = Number(((price * discountPercentage) / 100).toFixed(2));
+  return price - discount;
+};
+
+const getAllInfomations = (shopeItems: ShopItem[] = []) => {
+  const before = shopeItems
+    .map((item) => item.product.price * item.quantity)
+    .reduce((a, b) => a + b, 0);
+  const after = shopeItems
+    .map(
+      (item) =>
+        calcPrice(item.product.price, item.product.discountPercentage) *
+        item.quantity
+    )
+    .reduce((a, b) => a + b, 0);
+
+  return {
+    before: before.toFixed(2),
+    after: after.toFixed(2),
+    discount: Math.abs(after - before).toFixed(2),
+  };
+};
 
 export const ShopCard = () => {
   const { products } = useShopContext();
+  const { after, before, discount } = getAllInfomations(products);
   return (
     <div className="mt-2">
       <h2 className="text-2xl font-bold">Your Card</h2>
       <div className="space-y-4">
-        {products.map(({ product, quantity }) => (
-          <ProductItem product={product} quantity={quantity} />
-        ))}
+        {products.length ? (
+          <section className="space-y-4">
+            <article className="space-y-2">
+              {products.map(({ product, quantity }) => (
+                <ProductItem
+                  key={product.id}
+                  product={product}
+                  quantity={quantity}
+                />
+              ))}
+            </article>
+            <article className="space-y-4">
+              <Card>
+                <header>
+                  <h3 className="text-lg font-bold">Order Summary</h3>
+                </header>
+                <article className="space-y-2">
+                  <p className="flex justify-between">
+                    <span>Subtotal</span>
+                    <span className="text-red-500">${before}</span>
+                  </p>
+                  <p className="flex justify-between">
+                    <span> Discount</span>
+                    <span className="text-green-500">${discount}</span>
+                  </p>
+                  <div className=" divider" />
+                  <p className="flex justify-between">
+                    <span> Total</span>
+                    <span>${after}</span>
+                  </p>
+                </article>
+              </Card>
+              <footer>
+                <button className="w-full btn btn-primary">
+                  Go For Check Out{" "}
+                </button>
+              </footer>
+            </article>
+          </section>
+        ) : (
+          <p className="p-2">Your Card Is Empty</p>
+        )}
       </div>
     </div>
   );
 };
 
 export default ShopCard;
-
-const ProductItem = ({ product, quantity }: ShopItem) => {
-  const { removeFromCart, changeQuantity } = useShopContext();
-  function handleChange(value: number) {
-    changeQuantity(product.id, value);
-  }
-
-  return (
-    <Card className="flex gap-2 p-4 pb-2 w-80">
-      <figure className="size-24">
-        <img
-          className="object-cover rounded bg-gray-10"
-          src={product.thumbnail}
-          alt="Movie"
-        />
-      </figure>
-      <section className="flex flex-col justify-between flex-grow">
-        <header className="flex justify-between ">
-          <h3 className="w-40 font-bold truncate">{product.title}</h3>
-          <button
-            className="btn btn-sm btn-ghost btn-circle"
-            onClick={() => removeFromCart(product.id)}
-          >
-            <TrashIcon />
-          </button>
-        </header>
-        <article className="flex items-center justify-between gap-2">
-          <p className="text-lg">${product.price}</p>
-          <Counter
-            classNameButton="btn-sm"
-            count={quantity}
-            handleClick={handleChange}
-          />
-        </article>
-      </section>
-    </Card>
-  );
-};

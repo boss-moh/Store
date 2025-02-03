@@ -1,13 +1,14 @@
-import { ArrowIcon } from "@/assets/icons";
-import { DropDown } from "@/components";
+import { FilterIcon } from "@/assets/icons";
+import { useIsMobile } from "@/hooks";
 
-export const Header = () => {
+export const Header = ({ category }: { category: string }) => {
+  const isMobile = useIsMobile();
   return (
     <header className="flex-grow space-between">
-      <h2>Casual</h2>
+      <h2>{category}</h2>
       <div>
-        Showing 1-10 of 100 Products Sort by:
-        <DropDown
+        {/* Showing 1-10 of 100 Products Sort by: */}
+        {/* <DropDown
           button={
             <div className="items-center gap-2 space-between">
               <span>Most Popular</span>
@@ -23,7 +24,12 @@ export const Header = () => {
           <li>
             <button>one </button>
           </li>
-        </DropDown>
+        </DropDown> */}
+        {isMobile && (
+          <label htmlFor="drawer-filter" className="btn btn-sm btn-circle">
+            <FilterIcon />
+          </label>
+        )}
       </div>
     </header>
   );

@@ -7,6 +7,7 @@ export interface ShopContextType {
   addToCart: (shopItem: ShopItem) => void;
   removeFromCart: (productId: number) => void;
   changeQuantity: (productId: number, quantity: number) => void;
+  checkItem: (productId: number) => boolean;
 }
 
 export interface ShopItem {

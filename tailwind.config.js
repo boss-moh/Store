@@ -1,16 +1,16 @@
 /** @type {import('tailwindcss').Config} */
-import { COLORS } from "./src/constants/data/Colors";
+// import { COLORS } from "./src/constants/data/Colors";
 
-const safelist = [
-  ...COLORS.map(({ color }) => [
-    `bg-${color}-500`,
-    `hover:bg-${color}-600`,
-  ]).flat(),
-];
+// const safelist = [
+//   ...COLORS.map(({ color }) => [
+//     `bg-${color}-500`,
+//     `hover:bg-${color}-600`,
+//   ]).flat(),
+// ];
 
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  safelist: safelist,
+  // safelist: safelist,
   theme: {
     extend: {
       colors: {

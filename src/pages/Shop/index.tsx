@@ -4,21 +4,32 @@ import FilterSection from "./Filter";
 import Header from "./header";
 import Product from "./Product";
 import { AlertMessage, Card, Pagination } from "@/components";
+import { usePagiation } from "@/hooks";
+
+import { useIsMobile } from "@/hooks";
 
 export const ShopPage = () => {
+  const isMobile = useIsMobile();
+
   const {
-    products,
     currentPage,
-    onPagtion,
+    handlePagination: onPagtion,
     hasPrev,
     hasNext,
-    isLoading,
+  } = usePagiation();
+
+  const {
+    products,
+    isFetching: isLoading,
     isError,
     error,
+    titleForUI,
   } = useProducts();
+
+  const isNoProducts = !isLoading && !products.length;
   return (
     <div className="px-6 py-4 ">
-      <section>
+      <article>
         <div className=" breadcrumbs">
           <ul>
             <li>
@@ -27,41 +38,50 @@ export const ShopPage = () => {
             <li>
               <Link to={URL_LINKS.SHOP}>Shop</Link>
             </li>
+            {titleForUI && (
+              <li>
+                <Link to={"/"}>{titleForUI}</Link>
+              </li>
+            )}
           </ul>
         </div>
-      </section>
+      </article>
 
       <section className="flex gap-8">
-        <FilterSection className="flex-shrink-0 hidden max-w-72 md:block " />
+        {!isMobile && (
+          <FilterSection className="flex-shrink-0 hidden max-w-72 md:block " />
+        )}
+        <article className="flex-grow space-y-4">
+          <Header category={titleForUI} />
 
-        {isError ? (
-          <AlertMessage className=" h-fit">{error.message}</AlertMessage>
-        ) : (
-          <article className="flex-grow space-y-4">
-            <Header />
+          {isError ? (
+            <AlertMessage className=" h-fit">{error.message}</AlertMessage>
+          ) : isNoProducts ? (
+            <AlertMessage className=" h-fit !alert-info">
+              There are No Products
+            </AlertMessage>
+          ) : (
             <div className="space-y-3 ">
               <div className="grid grid-flow-row gap-10 grid-cols-3-250px ">
-                {products.map((product) => (
-                  <Product key={product.id} product={product} />
-                ))}
+                {!isLoading &&
+                  products.map((product) => (
+                    <Product key={product.id} product={product} />
+                  ))}
                 {isLoading &&
-                  products.length === 0 &&
-                  Array(10)
+                  Array(9)
                     .fill(0)
-                    .map(() => (
-                      <Card className="space-y-4 shadow-sm ">
-                        <div className="h-60 skeleton"></div>
-                        <div className="space-y-4">
+                    .map((_, key) => (
+                      <Card className="space-y-4 shadow-sm " key={key}>
+                        <div className="h-80 skeleton"></div>
+                        <div className="h-4 skeleton"></div>
+                        <div className="space-y-1">
                           <div className="h-4 skeleton"></div>
-                          <div className="space-y-1">
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                            <div className="h-2 skeleton"></div>
-                          </div>
-                          <div className="h-8 rounded-md skeleton"></div>
+                          <div className="h-4 skeleton"></div>
+                          <div className="h-4 skeleton"></div>
+                          <div className="h-4 skeleton"></div>
+                          <div className="h-4 skeleton"></div>
                         </div>
+                        <div className="h-8 rounded-md skeleton"></div>
                       </Card>
                     ))}
               </div>
@@ -76,8 +96,8 @@ export const ShopPage = () => {
                 />
               </footer>
             </div>
-          </article>
-        )}
+          )}
+        </article>
       </section>
     </div>
   );

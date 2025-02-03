@@ -41,6 +41,7 @@ const shopReducer = (
         }),
       };
 
+
     default:
       return state;
   }
@@ -58,8 +59,11 @@ export const useShopReducer = (initialShopContext: ShopContextType) => {
   const changeQuantity = (productId: number, quantity: number) => {
     dispatch({ type: "CHANGE_QUANTITY", payload: { id: productId, quantity } });
   };
+  const checkItem = (productId: number) => {
+   return !!state.products.find((item)=>item.product.id === productId) 
+  };
 
-  return { ...state, addToCart, removeFromCart, changeQuantity };
+  return { ...state, addToCart, removeFromCart, changeQuantity ,checkItem};
 };
 
 export default useShopReducer;
