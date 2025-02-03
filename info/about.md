@@ -34,19 +34,19 @@ Store Shop.co is an e-commerce website built with React, featuring product listi
 
 ### Desktop
 
-![Home page]('./images/desktop/Home.png')
-![Products Page]('./images/desktop/products.png')
-![Product Page With Card]('./images/desktop/Card.png')
-![Product Page]('./images/desktop/productDesktop.png')
+![Home page](https://github.com/boss-moh/Store/blob/info/info/images/desktop/Home.png)
+![Products Page](https://github.com/boss-moh/Store/blob/info/info/images/desktop/products.png)
+![Product Page With Card](https://github.com/boss-moh/Store/blob/info/info/images/desktop/Card.png)
+![Product Page](https://github.com/boss-moh/Store/blob/info/info/images/desktop/productDesktop.png)
 
 ### Phone
 
-![Home page]('./images/phone/homeonphone.jpeg')
-![Products Page]('./images/phone/products.png')
-![Product Page]('./images/phone/product.png')
+![Home page](https://github.com/boss-moh/Store/blob/info/info/images/phone/homeonphone.jpeg)
+![Products Page](https://github.com/boss-moh/Store/blob/info/info/images/phone/products.png)
+![Product Page](https://github.com/boss-moh/Store/blob/info/info/images/phone/product.png)
 
 ### Tab
 
-![Home page]('./images/tab/home.png')
-![Products Page]('./images/tab/products.png')
-![Product Page]('./images/tab/Product Tab.png')
+![Home page](https://github.com/boss-moh/Store/blob/info/info/images/tab/home.png)
+![Products Page](https://github.com/boss-moh/Store/blob/info/info/images/tab/products.png)
+![Product Page](https://github.com/boss-moh/Store/blob/info/info/images/tab/Product.png)
